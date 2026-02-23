@@ -5,7 +5,6 @@ import os
 import re
 gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk
-from SerialOperationsManager import GeneralSettings, SerialMonitor
 
 # Leaving the original import process as examples and reference
 # libAdapta uses its own module name (Adap.ApplicationWindow etc..).
@@ -46,11 +45,6 @@ class MainWindow(Adw.ApplicationWindow):
         self.set_default_size(800, 600)
         self.set_icon_name("application-x-firmware")
 
-        self.logging = False
-        self.serialSettings = GeneralSettings()
-        self.serialMonitor = SerialMonitor()
-        #self.serialWebsocket = SerialWebsocket()
-
         # Crear overlay split view visible hacia otros metodos por medio de self
         self.split_view = Adw.OverlaySplitView()
         self.split_view.set_max_sidebar_width(260)
@@ -65,7 +59,7 @@ class MainWindow(Adw.ApplicationWindow):
         # 1. Construir una funcion con todos los controles y/o metodos a ocupar (tomar demo_libadapta como muestra)
         # 2. Definir las lineas a ocupar dentro de la funcion sidebar_page (opcional)
         # 3. Asignar a la variable initial_page la funcion de la pagina a ocupar para que esta se muestre al ejecutarse
-        initial_page = self.instructions_page()
+        initial_page = self.demo_libadapta()
 
         self.split_view.set_content(initial_page)
         self.set_content(self.split_view)
@@ -93,12 +87,12 @@ class MainWindow(Adw.ApplicationWindow):
         monitor_row.add_prefix(monitor_icon)
         sidebar_listbox.append(monitor_row)
 
-        # ActionRow para la seccion de Websocket
-        ws_row = Adw.ActionRow()
-        ws_row.set_title("Serial Websocket")
-        ws_icon = Gtk.Image.new_from_icon_name("network-wired-symbolic")
-        ws_row.add_prefix(ws_icon)
-        sidebar_listbox.append(ws_row)
+        ## ActionRow para la seccion de Websocket
+        #ws_row = Adw.ActionRow()
+        #ws_row.set_title("Serial Websocket")
+        #ws_icon = Gtk.Image.new_from_icon_name("network-wired-symbolic")
+        #ws_row.add_prefix(ws_icon)
+        #sidebar_listbox.append(ws_row)
 
         ## ActionRow para una 3a seccion en adelante
         #otro_row = Adw.ActionRow()
@@ -112,11 +106,11 @@ class MainWindow(Adw.ApplicationWindow):
         # Adicionalmente, definir funciones nuevas para cada seccion o utilizar un menu existente para pruebas
         def on_row_selected(listbox, row):
             if row is instruction_row:
-                self.split_view.set_content(self.instructions_page())
+                self.split_view.set_content(self.demo_libadapta())
             elif row is monitor_row:
                 self.split_view.set_content(self.serial_monitor_page())
-            elif row is ws_row:
-                self.split_view.set_content(self.websocket_page())
+            #elif row is ws_row:
+            #    self.split_view.set_content(self.websocket_page())
             #elif row is otro_row:
             #    self.split_view.set_content(self.demo_libadapta())
             #elif row is otro_row:
@@ -359,150 +353,6 @@ class MainWindow(Adw.ApplicationWindow):
 
         return self.sm_page
 
-
-    def websocket_page(self):
-        # Boton para alternar visibilidad de menu lateral
-        ws_toggle_btn = Gtk.ToggleButton()
-        ws_toggle_btn.set_icon_name("sidebar-show-symbolic")
-        ws_toggle_btn.set_active(True)
-        ws_toggle_btn.connect("toggled", self.on_toggle_sidebar)
-
-        # HeaderBar libAdapta/libAdwaita con boton de visibilidad
-        ws_header = Adw.HeaderBar()
-        ws_header.pack_start(ws_toggle_btn)
-
-        # Seccion central donde iran todas las subsecciones correspondientes
-        ws_central_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        ws_central_box.set_hexpand(True)
-        ws_central_box.set_vexpand(True)
-
-        # Seccion de contenido donde ira cada subseccion definida
-        ws_content_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
-        ws_content_box.set_hexpand(True)
-        ws_content_box.set_vexpand(True)
-
-        # Creando la subseccion izquierda junto con sus controles
-        # Subseccion izquierda
-        ws_left_section_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        ws_left_section_box.set_hexpand(True)
-        ws_left_section_box.set_vexpand(True)
-
-        # Label para designar seccion de configuracion de puerto RS232
-        ws_serial_label = Gtk.Label()
-        ws_serial_label.set_label("Configuracion puerto RS232")
-
-        # Label y DropDown para puertos disponibles
-        ws_ports_label = Gtk.Label()
-        ws_ports_label.set_label("Puertos disponibles")
-        ws_port_string_list = Gtk.StringList.new()
-        # Busco por puertos seriales, estos aparece como "/dev/ttyUSB0" o similares
-        for port in os.listdir('/dev'):
-            if re.match(r'^ttyUSB\d+$', port):
-                ws_port_string_list.append(f"/dev/{port}")
-        ws_port_dropdown = Gtk.DropDown.new(ws_port_string_list)
-
-        # Label y DropDown para baudrate
-        # Se deja 9600 por defecto por ser el valor mas utilizado en equipos
-        ws_baudrate_label = Gtk.Label()
-        ws_baudrate_label.set_label("Baudrate")
-        ws_baudrate_string_list = Gtk.StringList.new(["100", "300", "600", "1200", "2400", "4800", "9600", "14400",
-                     "19200", "38400", "56000", "57600", "115200", "128000", "256000"])
-        ws_baudrate_dropdown = Gtk.DropDown.new(ws_baudrate_string_list)
-        ws_baudrate_dropdown.set_selected(6)
-
-        # Label y DropDown para data bits
-        ws_databits_label = Gtk.Label()
-        ws_databits_label.set_label("Data Bits")
-        ws_databits_string_list = Gtk.StringList.new(["5", "6", "7", "8"])
-        ws_databits_dropdown = Gtk.DropDown.new(ws_databits_string_list)
-
-        # Label y DropDown para paridad
-        # Se deja "Ninguna" por defecto por ser el valor mas utilizado en equipos
-        ws_parity_label = Gtk.Label()
-        ws_parity_label.set_label("Paridad")
-        ws_parity_string_list = Gtk.StringList.new(["Ninguna", "Par", "Impar", "Espacio", "Marca"])
-        ws_parity_dropdown = Gtk.DropDown.new(ws_parity_string_list)
-        ws_parity_dropdown.set_selected(0)
-
-        # Label y DropDown para bits de parada
-        ws_stopbits_label = Gtk.Label()
-        ws_stopbits_label.set_label("Bit parada")
-        ws_stopbits_string_list = Gtk.StringList.new(["1", "1.5", "2"])
-        ws_stopbits_dropdown = Gtk.DropDown.new(ws_stopbits_string_list)
-
-        # Label y DropDown para control de flujo
-        ws_flowcontrol_label = Gtk.Label()
-        ws_flowcontrol_label.set_label("Control de flujo")
-        ws_flowcontrol_string_list = Gtk.StringList.new(["Ninguno", "Hardware", "Xon/Xoff"])
-        ws_flowcontrol_dropdown = Gtk.DropDown.new(ws_flowcontrol_string_list)
-
-        # Añadiendo controles a la subseccion izquierda
-        ws_left_section_box.append(ws_serial_label)
-        ws_left_section_box.append(ws_ports_label)
-        ws_left_section_box.append(ws_port_dropdown)
-        ws_left_section_box.append(ws_baudrate_label)
-        ws_left_section_box.append(ws_baudrate_dropdown)
-        ws_left_section_box.append(ws_databits_label)
-        ws_left_section_box.append(ws_databits_dropdown)
-        ws_left_section_box.append(ws_parity_label)
-        ws_left_section_box.append(ws_parity_dropdown)
-        ws_left_section_box.append(ws_stopbits_label)
-        ws_left_section_box.append(ws_stopbits_dropdown)
-        ws_left_section_box.append(ws_flowcontrol_label)
-        ws_left_section_box.append(ws_flowcontrol_dropdown)
-
-        # Creando la subseccion derecha junto con sus controles
-        # Subseccion derecha
-        ws_right_section_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        ws_right_section_box.set_hexpand(True)
-        ws_right_section_box.set_vexpand(True)
-
-        # Label para designar seccion de configuracion de puerto RS232
-        ws_websocket_label = Gtk.Label()
-        ws_websocket_label.set_label("Configuracion WebSocket")
-
-        ws_ip_label = Gtk.Label()
-        ws_ip_label.set_label("Mi direccion IP actual: ")
-        ws_ip_entry = Gtk.Entry()
-        ws_ip_entry.set_editable(False)
-        ws_ip_entry.set_text(self.serialSettings.get_local_ip())
-
-        # TODO: Considerar un campo de entrada o una lista desplegable?
-        # Label y DropDown para configuracion de puerto websocket
-        ws_port_label = Gtk.Label()
-        ws_port_label.set_label("Puerto a utilizar WebSocket")
-        ws_port_string_list = Gtk.StringList.new(["8765", "8080", "9000"])
-        ws_port_dropdown = Gtk.DropDown.new(ws_port_string_list)
-
-        # Boton para ejecutar el log de datos
-        ws_data_button = Gtk.Button()
-        ws_data_button.set_label("Iniciar WebSocket")
-        #ws_data_button.connect("clicked", ws_log_data)
-
-        # Añadiendo controles a la subseccion derecha
-        ws_right_section_box.append(ws_websocket_label)
-        ws_right_section_box.append(ws_ip_label)
-        ws_right_section_box.append(ws_ip_entry)
-        ws_right_section_box.append(ws_port_label)
-        ws_right_section_box.append(ws_port_dropdown)
-        ws_right_section_box.append(ws_data_button)
-
-        # Añadiendo las subsecciones izquierda y derecha a la seccion de contenido
-        ws_content_box.append(ws_left_section_box)
-        ws_content_box.append(ws_right_section_box)
-
-        # Añadiendo la seccion de contenido al contenido principal
-        ws_central_box.append(ws_content_box)
-
-        ws_toolbar = Adw.ToolbarView()
-        ws_toolbar.add_top_bar(ws_header)
-        ws_toolbar.set_content(ws_central_box)
-
-        ws_page = Adw.NavigationPage()
-        ws_page.set_title("Websocket RS232")
-        ws_page.set_child(ws_toolbar)
-
-        return ws_page
     
     def not_found_page(self):
         # Boton para alternar visibilidad de menu lateral
@@ -536,6 +386,7 @@ class MainWindow(Adw.ApplicationWindow):
         nf_page.set_child(nf_toolbar)
 
         return nf_page
+
     
     def demo_libadapta(self):
         # Boton para alternar visibilidad de menu lateral
