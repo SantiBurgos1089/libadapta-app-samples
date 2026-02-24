@@ -147,7 +147,7 @@ class MainWindow(Adw.ApplicationWindow):
         box.append(calendar)
         content_box.append(box)
 
-        # For Mint libAdapta demo, uncomment line 487 and comment line 486
+        # For Mint libAdapta demo, uncomment line 152 and comment line 151
         content_toolbar = Adw.ToolbarView()
         #content_toolbar.add_top_bar(Adw.HeaderBar())
         content_toolbar.add_top_bar(demo_header)
@@ -179,7 +179,7 @@ class MainWindow(Adw.ApplicationWindow):
         box.append(calendar)
         content_box.append(box)
 
-        # For Mint libAdapta demo, uncomment line 487 and comment line 486
+        # For Mint libAdapta demo, uncomment line 184 and comment line 183
         content_toolbar = Adw.ToolbarView()
         #content_toolbar.add_top_bar(Adw.HeaderBar())
         content_toolbar.add_top_bar(demo_header)
