@@ -33,7 +33,7 @@ except(ValueError, ImportError):
     from gi.repository import Adap as Adw
 
 # Application ID
-app_id = "xyz.agatinos.app_sample1"
+app_id = "xyz.agatinos.app_sample3"
 
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, *args, **kwargs):
@@ -132,8 +132,15 @@ class MainWindow(Adw.ApplicationWindow):
         return self.navigation_sidebar_page
 
     def demo_libadapta1(self):
+        # Boton para alternar visibilidad de menu lateral
+        demo_toggle_btn = Gtk.ToggleButton()
+        demo_toggle_btn.set_icon_name("xsi-sidebar-show-symbolic")
+        demo_toggle_btn.set_active(True)
+        demo_toggle_btn.connect("toggled", self.on_toggle_sidebar)
+
         # HeaderBar libAdapta/libAdwaita con boton de visibilidad
         demo_header = Adw.HeaderBar()
+        demo_header.pack_start(demo_toggle_btn)
 
         # Create the content page
         content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -147,7 +154,7 @@ class MainWindow(Adw.ApplicationWindow):
         box.append(calendar)
         content_box.append(box)
 
-        # For Mint libAdapta demo, uncomment line 152 and comment line 151
+        # For Mint libAdapta demo, uncomment line 159 and comment line 158
         content_toolbar = Adw.ToolbarView()
         #content_toolbar.add_top_bar(Adw.HeaderBar())
         content_toolbar.add_top_bar(demo_header)
@@ -164,8 +171,15 @@ class MainWindow(Adw.ApplicationWindow):
         return content_page
     
     def demo_libadapta2(self):
+        # Boton para alternar visibilidad de menu lateral
+        demo_toggle_btn = Gtk.ToggleButton()
+        demo_toggle_btn.set_icon_name("xsi-sidebar-show-symbolic")
+        demo_toggle_btn.set_active(True)
+        demo_toggle_btn.connect("toggled", self.on_toggle_sidebar)
+
         # HeaderBar libAdapta/libAdwaita con boton de visibilidad
         demo_header = Adw.HeaderBar()
+        demo_header.pack_start(demo_toggle_btn)
 
         # Create the content page
         content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -179,7 +193,7 @@ class MainWindow(Adw.ApplicationWindow):
         box.append(calendar)
         content_box.append(box)
 
-        # For Mint libAdapta demo, uncomment line 184 and comment line 183
+        # For Mint libAdapta demo, uncomment line 198 and comment line 197
         content_toolbar = Adw.ToolbarView()
         #content_toolbar.add_top_bar(Adw.HeaderBar())
         content_toolbar.add_top_bar(demo_header)
@@ -196,8 +210,15 @@ class MainWindow(Adw.ApplicationWindow):
         return content_page
     
     def demo3(self):
+        # Boton para alternar visibilidad de menu lateral
+        demo_toggle_btn = Gtk.ToggleButton()
+        demo_toggle_btn.set_icon_name("xsi-sidebar-show-symbolic")
+        demo_toggle_btn.set_active(True)
+        demo_toggle_btn.connect("toggled", self.on_toggle_sidebar)
+
         # HeaderBar libAdapta/libAdwaita con boton de visibilidad
         nf_header = Adw.HeaderBar()
+        nf_header.pack_start(demo_toggle_btn)
 
         nf_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
@@ -220,6 +241,16 @@ class MainWindow(Adw.ApplicationWindow):
         nf_page.set_child(nf_toolbar)
 
         return nf_page
+
+    # Alterna la visibilidad del sidebar y cambia el icono del boton.
+    def on_toggle_sidebar(self, button):
+        sidebar_visible = button.get_active()
+        self.split_view.set_show_sidebar(sidebar_visible)
+
+        if sidebar_visible:
+            button.set_icon_name("xsi-sidebar-show-symbolic")
+        else:
+            button.set_icon_name("xsi-sidebar-show-right-symbolic")
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
