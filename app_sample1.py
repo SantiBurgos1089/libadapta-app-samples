@@ -72,21 +72,28 @@ class MainWindow(Adw.ApplicationWindow):
         sidebar_listbox.set_selection_mode(Gtk.SelectionMode.SINGLE)
 
         # Si necesita agregar mas filas, tomar de muestra cada linea y la seccion otro_row
-        # ActionRow para una seccion de instrucciones
-        instruction_row = Adw.ActionRow()
-        instruction_row.set_title("Demo 1")
+        # ActionRow para la seccion demostracion 1
+        demo1_row = Adw.ActionRow()
+        demo1_row.set_title("Demo 1")
         instruction_icon = Gtk.Image.new_from_icon_name("xsi-auth-face-symbolic")
-        instruction_row.add_prefix(instruction_icon)
-        sidebar_listbox.append(instruction_row)
+        demo1_row.add_prefix(instruction_icon)
+        sidebar_listbox.append(demo1_row)
 
-        # ActionRow para la seccion de Serial Monitor
-        monitor_row = Adw.ActionRow()
-        monitor_row.set_title("Demo 2")
+        # ActionRow para la seccion demostracion 2
+        demo2_row = Adw.ActionRow()
+        demo2_row.set_title("Demo 2")
         monitor_icon = Gtk.Image.new_from_icon_name("xsi-avatar-default-symbolic")
-        monitor_row.add_prefix(monitor_icon)
-        sidebar_listbox.append(monitor_row)
+        demo2_row.add_prefix(monitor_icon)
+        sidebar_listbox.append(demo2_row)
 
-        ## ActionRow para una 3a seccion en adelante
+        # ActionRow para la seccion demostracion 3
+        demo3_row = Adw.ActionRow()
+        demo3_row.set_title("Demo 3")
+        monitor_icon = Gtk.Image.new_from_icon_name("xsi-computer-fail-symbolic")
+        demo3_row.add_prefix(monitor_icon)
+        sidebar_listbox.append(demo3_row)
+
+        ## ActionRow para añadir mas secciones en adelante
         #otro_row = Adw.ActionRow()
         #otro_row.set_title("Otro row")
         #otro_icon = Gtk.Image.new_from_icon_name("preferences-other-symbolic")
@@ -98,12 +105,12 @@ class MainWindow(Adw.ApplicationWindow):
         # ActionRow previamente definidos. Adicionalmente, definir funciones nuevas para 
         # cada seccion o utilizar un menu existente para pruebas
         def on_row_selected(listbox, row):
-            if row is instruction_row:
+            if row is demo1_row:
                 self.split_view.set_content(self.demo_libadapta1())
-            elif row is monitor_row:
+            elif row is demo2_row:
                 self.split_view.set_content(self.demo_libadapta2())
-            #elif row is otro_row:
-            #    self.split_view.set_content(self.demo_libadapta())
+            elif row is demo3_row:
+                self.split_view.set_content(self.demo3())
             #elif row is otro_row:
             #    self.split_view.set_content(self.other_page())
 
@@ -123,39 +130,6 @@ class MainWindow(Adw.ApplicationWindow):
         self.navigation_sidebar_page.set_child(sidebar_toolbar)
 
         return self.navigation_sidebar_page
-    
-    def not_found_page(self):
-        # Boton para alternar visibilidad de menu lateral
-        nf_toggle_btn = Gtk.ToggleButton()
-        nf_toggle_btn.set_icon_name("sidebar-show-symbolic")
-        nf_toggle_btn.set_active(True)
-        nf_toggle_btn.connect("toggled", self.on_toggle_sidebar)
-
-        # HeaderBar libAdapta/libAdwaita con boton de visibilidad
-        nf_header = Adw.HeaderBar()
-        nf_header.pack_start(nf_toggle_btn)
-
-        nf_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-
-        nf_status_page = Adw.StatusPage()
-        nf_status_page.set_title("Puerto serial no detectado")
-        nf_status_page.set_description("No se ha detectado un puerto serie en el equipo, favor de verificar y abrir el programa nuevamente")
-        nf_status_page.set_icon_name("action-unavailable-symbolic")
-
-        nf_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        nf_box.append(nf_status_page)
-
-        nf_content_box.append(nf_box)
-
-        nf_toolbar = Adw.ToolbarView()
-        nf_toolbar.add_top_bar(nf_header)
-        nf_toolbar.set_content(nf_content_box)
-
-        nf_page = Adw.NavigationPage()
-        nf_page.set_title("Error RS232")
-        nf_page.set_child(nf_toolbar)
-
-        return nf_page
 
     def demo_libadapta1(self):
         # HeaderBar libAdapta/libAdwaita con boton de visibilidad
@@ -220,16 +194,32 @@ class MainWindow(Adw.ApplicationWindow):
         
         #self.set_content(split_view)
         return content_page
+    
+    def demo3(self):
+        # HeaderBar libAdapta/libAdwaita con boton de visibilidad
+        nf_header = Adw.HeaderBar()
 
-    # Alterna la visibilidad del sidebar y cambia el icono del boton.
-    def on_toggle_sidebar(self, button):
-        sidebar_visible = button.get_active()
-        self.split_view.set_show_sidebar(sidebar_visible)
+        nf_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
-        if sidebar_visible:
-            button.set_icon_name("xsi-sidebar-show-symbolic")
-        else:
-            button.set_icon_name("xsi-sidebar-show-right-symbolic")
+        nf_status_page = Adw.StatusPage()
+        nf_status_page.set_title("Another page")
+        nf_status_page.set_description("Another page with information and an xapp symbolic icon (xsi)")
+        nf_status_page.set_icon_name("xsi-computer-fail-symbolic")
+
+        nf_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+        nf_box.append(nf_status_page)
+
+        nf_content_box.append(nf_box)
+
+        nf_toolbar = Adw.ToolbarView()
+        nf_toolbar.add_top_bar(nf_header)
+        nf_toolbar.set_content(nf_content_box)
+
+        nf_page = Adw.NavigationPage()
+        nf_page.set_title("Error RS232")
+        nf_page.set_child(nf_toolbar)
+
+        return nf_page
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
