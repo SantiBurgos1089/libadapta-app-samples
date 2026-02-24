@@ -158,15 +158,8 @@ class MainWindow(Adw.ApplicationWindow):
         return nf_page
 
     def demo_libadapta1(self):
-        # Boton para alternar visibilidad de menu lateral
-        demo_toggle_btn = Gtk.ToggleButton()
-        demo_toggle_btn.set_icon_name("xsi-sidebar-show-symbolic")
-        demo_toggle_btn.set_active(True)
-        demo_toggle_btn.connect("toggled", self.on_toggle_sidebar)
-
         # HeaderBar libAdapta/libAdwaita con boton de visibilidad
         demo_header = Adw.HeaderBar()
-        demo_header.pack_start(demo_toggle_btn)
 
         # Create the content page
         content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -197,20 +190,13 @@ class MainWindow(Adw.ApplicationWindow):
         return content_page
     
     def demo_libadapta2(self):
-        # Boton para alternar visibilidad de menu lateral
-        demo_toggle_btn = Gtk.ToggleButton()
-        demo_toggle_btn.set_icon_name("xsi-sidebar-show-symbolic")
-        demo_toggle_btn.set_active(True)
-        demo_toggle_btn.connect("toggled", self.on_toggle_sidebar)
-
         # HeaderBar libAdapta/libAdwaita con boton de visibilidad
         demo_header = Adw.HeaderBar()
-        demo_header.pack_start(demo_toggle_btn)
 
         # Create the content page
         content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         status_page = Adw.StatusPage()
-        status_page.set_title("Python libAdapta Demo 1")
+        status_page.set_title("Python libAdapta Demo 2")
         status_page.set_description("Split navigation view, xapp symbolic icon (xsi) and a calendar widget to feature the accent color.")
         status_page.set_icon_name("xsi-avatar-default-symbolic")
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
