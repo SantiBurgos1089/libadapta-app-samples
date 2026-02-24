@@ -126,7 +126,7 @@ class MainWindow(Adw.ApplicationWindow):
         sidebar_toolbar.set_content(sidebar_box)
 
         self.navigation_sidebar_page = Adw.NavigationPage()
-        self.navigation_sidebar_page.set_title("Opciones")
+        self.navigation_sidebar_page.set_title("Options")
         self.navigation_sidebar_page.set_child(sidebar_toolbar)
 
         return self.navigation_sidebar_page
@@ -152,7 +152,7 @@ class MainWindow(Adw.ApplicationWindow):
         #content_toolbar.add_top_bar(Adw.HeaderBar())
         content_toolbar.add_top_bar(demo_header)
         content_toolbar.set_content(content_box)
-        content_page = Adw.NavigationPage(title="Page")
+        content_page = Adw.NavigationPage(title="Demo 1")
 
         content_page.set_child(content_toolbar)
 
@@ -184,7 +184,7 @@ class MainWindow(Adw.ApplicationWindow):
         #content_toolbar.add_top_bar(Adw.HeaderBar())
         content_toolbar.add_top_bar(demo_header)
         content_toolbar.set_content(content_box)
-        content_page = Adw.NavigationPage(title="Page")
+        content_page = Adw.NavigationPage(title="Demo 2")
 
         content_page.set_child(content_toolbar)
 
@@ -216,7 +216,7 @@ class MainWindow(Adw.ApplicationWindow):
         nf_toolbar.set_content(nf_content_box)
 
         nf_page = Adw.NavigationPage()
-        nf_page.set_title("Error RS232")
+        nf_page.set_title("Demo 3")
         nf_page.set_child(nf_toolbar)
 
         return nf_page
