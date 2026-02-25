@@ -32,15 +32,19 @@ except(ValueError, ImportError):
     gi.require_version('Adap', '1')
     from gi.repository import Adap as Adw
 
+# Importacion de clases modulares
+from sample5_libadapta1 import DemoLibadapta1
+from sample5_libadapta2 import DemoLibadapta2
+
 # Application ID
-app_id = "xyz.agatinos.app_sample2"
+app_id = "xyz.agatinos.app_sample5"
 
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Informacion general de la ventana de aplicacion e icono opcional
-        self.set_title("App Sample 2")
+        self.set_title("App Sample 5")
         self.set_default_size(800, 600)
         self.set_icon_name("application-certificate")
 
@@ -62,22 +66,24 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Crea y añade vistas al ViewStack para mostrar
         # Para definir algo diferente se debe realizar lo siguiente:
-        # 1. Construir una funcion con todos los controles y/o metodos a ocupar (tomar 
-        # demo_libadapta como muestra)
-        # 2. Llamar al stack de vistas con el metodo "add_titled_with_icon"
-        # 3. Proveer los parametros necesarios para la vista a crear en el siguiente orden:
+        # 1. Crear un archivo que llevara la clase a importar (tomar sample5_libadapta1
+        #  como muestra)
+        # 2. Dentro de dicha clase agregar todos los controles y/o metodos a ocupar segun 
+        # convenga
+        # 3. Llamar al stack de vistas con el metodo "add_titled_with_icon"
+        # 4. Proveer los parametros necesarios para la vista a crear en el siguiente orden:
         # variable_stack_vistas.add_titled_with_icon(
-        #       self.nombre_funcion_a_ocupar(),
+        #       nombre_clase_importada,
         #       "id_de_la_pagina",
         #       "Titulo de la pagina",
-        #       "icono_simbolico_gtk")
-        # Repetir los pasos 1 a 3 para cada vista adicional que se desee agregar
+        #       "icono_simbolico_xapp_xsi")
+        # Repetir los pasos 1 a 4 para cada vista adicional que se desee agregar
         # Adicionalmente, verificar el orden en que se agregan las vistas, ya que este sera 
         # el orden en que se muestren en la interfaz
 
         # Primer stack de vistas, este se muestra al iniciar la aplicacion
         content_stack.add_titled_with_icon(
-            self.demo1(),
+            DemoLibadapta1(),
             "demo1",
             "Demo 1",
             "xsi-auth-face-symbolic"
@@ -85,7 +91,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Segundo stack de vistas
         content_stack.add_titled_with_icon(
-            self.demo2(),
+            DemoLibadapta2(),
             "demo2",
             "Demo 2",
             "xsi-avatar-default-symbolic"
@@ -103,36 +109,6 @@ class MainWindow(Adw.ApplicationWindow):
         # Añadir los widgets al contenedor principal
         main_content_box.append(demo_headerbar)
         main_content_box.append(content_stack)
-
-    def demo1(self):
-        # Create the content page
-        content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        status_page = Adw.StatusPage()
-        status_page.set_title("Python libAdapta Demo 1")
-        status_page.set_description("Stack navigation view, xapp symbolic icon (xsi) and a calendar widget to feature the accent color.")
-        status_page.set_icon_name("xsi-auth-face-symbolic")
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        calendar = Gtk.Calendar()
-        box.append(status_page)
-        box.append(calendar)
-        content_box.append(box)
-
-        return content_box
-
-    def demo2(self):
-        # Create the content page
-        content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        status_page = Adw.StatusPage()
-        status_page.set_title("Python libAdapta Demo 2")
-        status_page.set_description("Stack navigation view, xapp symbolic icon (xsi) and a calendar widget to feature the accent color.")
-        status_page.set_icon_name("xsi-avatar-default-symbolic")
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        calendar = Gtk.Calendar()
-        box.append(status_page)
-        box.append(calendar)
-        content_box.append(box)
-
-        return content_box
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
