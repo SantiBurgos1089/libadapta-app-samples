@@ -97,11 +97,11 @@ class MainWindow(Adw.ApplicationWindow):
         switcher_title.set_policy(Adw.ViewSwitcherPolicy.WIDE)
 
         # Crear HeaderBar y asignarlo como el widget de título de la barra
-        fel_headerbar = Adw.HeaderBar()
-        fel_headerbar.set_title_widget(switcher_title)
+        demo_headerbar = Adw.HeaderBar()
+        demo_headerbar.set_title_widget(switcher_title)
 
         # Añadir los widgets al contenedor principal
-        main_content_box.append(fel_headerbar)
+        main_content_box.append(demo_headerbar)
         main_content_box.append(content_stack)
 
     def demo1(self):
