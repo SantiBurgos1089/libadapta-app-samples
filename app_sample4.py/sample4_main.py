@@ -33,7 +33,8 @@ except(ValueError, ImportError):
     from gi.repository import Adap as Adw
 
 # Importacion de clases modulares
-from sample4_libadapta import DemoLibadapta
+from sample4_libadapta1 import DemoLibadapta1
+from sample4_libadapta2 import DemoLibadapta2
 
 # Application ID
 app_id = "xyz.agatinos.app_sample4"
@@ -61,7 +62,7 @@ class MainWindow(Adw.ApplicationWindow):
         # 1. Construir una funcion con todos los controles y/o metodos a ocupar (tomar demo_libadapta como muestra)
         # 2. Definir las lineas a ocupar dentro de la funcion sidebar_page (opcional)
         # 3. Asignar a la variable initial_page la funcion de la pagina a ocupar para que esta se muestre al ejecutarse
-        initial_page = DemoLibadapta.get_widget(self)
+        initial_page = DemoLibadapta1.get_widget(self)
 
         self.split_view.set_content()
         #self.split_view.set_content(initial_page)
@@ -84,11 +85,11 @@ class MainWindow(Adw.ApplicationWindow):
         sidebar_listbox.append(demo1_row)
 
         ## ActionRow para la seccion demostracion 2
-        #demo2_row = Adw.ActionRow()
-        #demo2_row.set_title("Demo 2")
-        #monitor_icon = Gtk.Image.new_from_icon_name("xsi-avatar-default-symbolic")
-        #demo2_row.add_prefix(monitor_icon)
-        #sidebar_listbox.append(demo2_row)
+        demo2_row = Adw.ActionRow()
+        demo2_row.set_title("Demo 2")
+        monitor_icon = Gtk.Image.new_from_icon_name("xsi-avatar-default-symbolic")
+        demo2_row.add_prefix(monitor_icon)
+        sidebar_listbox.append(demo2_row)
 
         ## ActionRow para la seccion demostracion 3
         #demo3_row = Adw.ActionRow()
@@ -110,10 +111,9 @@ class MainWindow(Adw.ApplicationWindow):
         # cada seccion o utilizar un menu existente para pruebas
         def on_row_selected(listbox, row):
             if row is demo1_row:
-                #self.split_view.set_content(self.demo_libadapta1())
-                self.split_view.set_content(DemoLibadapta.get_widget(self))
-            #elif row is demo2_row:
-            #    self.split_view.set_content(self.demo_libadapta2())
+                self.split_view.set_content(DemoLibadapta1.get_widget(self))
+            elif row is demo2_row:
+                self.split_view.set_content(DemoLibadapta2.get_widget(self))
             #elif row is demo3_row:
             #    self.split_view.set_content(self.demo3())
             ##elif row is otro_row:
