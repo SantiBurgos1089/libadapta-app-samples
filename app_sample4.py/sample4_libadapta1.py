@@ -32,7 +32,7 @@ except(ValueError, ImportError):
     gi.require_version('Adap', '1')
     from gi.repository import Adap as Adw
 
-class DemoLibadapta:
+class DemoLibadapta1:
     def __init__(self, main_window):
         self.main_window = main_window
 
