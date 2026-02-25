@@ -59,13 +59,13 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Mostrar un contenido inicial al abrir el programa
         # Para definir algo diferente se debe realizar lo siguiente:
-        # 1. Construir una funcion con todos los controles y/o metodos a ocupar (tomar demo_libadapta como muestra)
-        # 2. Definir las lineas a ocupar dentro de la funcion sidebar_page (opcional)
-        # 3. Asignar a la variable initial_page la funcion de la pagina a ocupar para que esta se muestre al ejecutarse
+        # 1. Crear un archivo que llevara la clase a importar (tomar sample4_libadapta1 como muestra)
+        # 2. Dentro de dicha clase agregar todos los controles y/o metodos a ocupar segun convenga
+        # 3. Realizar la importacion de la clase (from nombre_archivo import clases_creadas)
+        # 4. Asignar a la variable initial_page la funcion de la clase importada que muestre los controles
         initial_page = DemoLibadapta1.get_widget(self)
 
-        self.split_view.set_content()
-        #self.split_view.set_content(initial_page)
+        self.split_view.set_content(initial_page)
         self.set_content(self.split_view)
 
     def sidebar_page(self):
@@ -80,22 +80,22 @@ class MainWindow(Adw.ApplicationWindow):
         # ActionRow para la seccion demostracion 1
         demo1_row = Adw.ActionRow()
         demo1_row.set_title("Demo 1")
-        instruction_icon = Gtk.Image.new_from_icon_name("xsi-auth-face-symbolic")
-        demo1_row.add_prefix(instruction_icon)
+        demo1_icon = Gtk.Image.new_from_icon_name("xsi-auth-face-symbolic")
+        demo1_row.add_prefix(demo1_icon)
         sidebar_listbox.append(demo1_row)
 
         ## ActionRow para la seccion demostracion 2
         demo2_row = Adw.ActionRow()
         demo2_row.set_title("Demo 2")
-        monitor_icon = Gtk.Image.new_from_icon_name("xsi-avatar-default-symbolic")
-        demo2_row.add_prefix(monitor_icon)
+        demo2_icon = Gtk.Image.new_from_icon_name("xsi-avatar-default-symbolic")
+        demo2_row.add_prefix(demo2_icon)
         sidebar_listbox.append(demo2_row)
 
         ## ActionRow para la seccion demostracion 3
         #demo3_row = Adw.ActionRow()
         #demo3_row.set_title("Demo 3")
-        #monitor_icon = Gtk.Image.new_from_icon_name("xsi-computer-fail-symbolic")
-        #demo3_row.add_prefix(monitor_icon)
+        #demo3_icon = Gtk.Image.new_from_icon_name("xsi-computer-fail-symbolic")
+        #demo3_row.add_prefix(demo3_icon)
         #sidebar_listbox.append(demo3_row)
 
         ## ActionRow para añadir mas secciones en adelante
@@ -107,8 +107,8 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Manejo de la navegacion por cada ActionRow definido
         # Si necesita mostrar otras secciones, continuar la sentencia elif y agregar los 
-        # ActionRow previamente definidos. Adicionalmente, definir funciones nuevas para 
-        # cada seccion o utilizar un menu existente para pruebas
+        # ActionRow previamente definidos. El contenido que debe mostrar es la funcion de 
+        # la clase importada que muestre los controles.
         def on_row_selected(listbox, row):
             if row is demo1_row:
                 self.split_view.set_content(DemoLibadapta1.get_widget(self))
@@ -150,6 +150,4 @@ def main():
     app.run(None)
 
 if __name__ == "__main__":
-    #main()
-    app = MyApp(application_id=app_id)
-    app.run(None)
+    main()
