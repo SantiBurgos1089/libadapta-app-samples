@@ -80,7 +80,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.demo1(),
             "demo1",
             "Demo 1",
-            "xsi-apps-symbolic"
+            "xsi-auth-face-symbolic"
         )
 
         # Segundo stack de vistas
@@ -88,7 +88,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.demo2(),
             "demo2",
             "Demo 2",
-            "xsi-apps-symbolic"
+            "xsi-avatar-default-symbolic"
         )
 
         # Crear el ViewSwitcherTitle (El título que cambia según la vista y tiene los botones)
