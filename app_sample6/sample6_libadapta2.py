@@ -36,6 +36,9 @@ class DemoLibadapta2:
     def __init__(self, main_window):
         self.main_window = main_window
 
+    # Se puede nombrar a la funcion con cualquier nombre, como demostración se ha dejado este nombre 
+    # de get_widget(), sin embargo, no se está limitado a algo en particular, siempre y cuando se 
+    # coloque el nombre en la clase principal
     def get_widget(self):
         # Boton para alternar visibilidad de menu lateral
         demo_toggle_btn = Gtk.ToggleButton()
