@@ -8,8 +8,7 @@ gi.require_version('Adap', '1')
 from gi.repository import Adap as Adw
 
 # Importacion de clases modulares
-#from sample5_libadapta1 import DemoLibadapta1
-#from sample5_libadapta2 import DemoLibadapta2
+from sample7_appearance import DemoAppearance
 
 # Application ID
 app_id = "xyz.agatinos.app_sample_lightdm_settings"
@@ -57,20 +56,20 @@ class MainWindow(Adw.ApplicationWindow):
         # el orden en que se muestren en la interfaz
 
         content_stack.add_titled_with_icon(
-            DemoLibadapta1(),
+            DemoAppearance(),
             "appearance",
             "Appearance",
             "xsi-appearance-symbolic"
         )
 
         content_stack.add_titled_with_icon(
-            DemoLibadapta2(),
+            DemoAppearance(),
             "users",
             "Users",
             "xsi-users-symbolic"
         )
         content_stack.add_titled_with_icon(
-            DemoLibadapta3(),
+            DemoAppearance(),
             "settings",
             "Settings",
             "xsi-applications-administration-symbolic"
