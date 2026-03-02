@@ -20,46 +20,47 @@ class DemoAppearance(Gtk.Box):
         self.appearance_page = Adw.PreferencesPage()
         self.appearance_page.set_title("General")
 
-        # Seccion General
+        # General section
         self.general_group = Adw.PreferencesGroup()
         self.general_group.set_title("General")
 
         # Alignment row
         self.general_row = Adw.ActionRow()
         self.general_row.set_title("Alignment")
-
         self.general_string_list = Gtk.StringList.new(["Left", "Center", "Right"])
         self.general_dropdown = Gtk.DropDown.new(self.general_string_list)
         #self.general_dropdown.set_hexpand(True)
         self.general_row.add_suffix(self.general_dropdown)
 
+        # Add row to section
         self.general_group.add(self.general_row)
 
+        # Add section with all controls to page
         self.appearance_page.add(self.general_group)
 
-        # Seccion Background
+        # Background section
         self.background_group = Adw.PreferencesGroup()
         self.background_group.set_title("Background")
 
         # Background row
         self.background_row = Adw.ActionRow()
         self.background_row.set_title("Background")
-
         self.background_entry = Gtk.Entry()
         self.background_entry.set_hexpand(True)
         self.background_entry.set_property("editable", False)
         self.background_row.add_suffix(self.background_entry)
 
+        # Add row to section
         self.background_group.add(self.background_row)
 
         # Background color row
         self.bgcolor_row = Adw.ActionRow()
         self.bgcolor_row.set_title("Background color")
-
         self.color_dialog = Gtk.ColorDialog()
         self.color_picker = Gtk.ColorDialogButton.new(dialog=self.color_dialog)
         self.bgcolor_row.add_suffix(self.color_picker)
 
+        # Add row to section
         self.background_group.add(self.bgcolor_row)
 
         # Stretch background row
@@ -67,6 +68,7 @@ class DemoAppearance(Gtk.Box):
         self.stretchbg_switch.set_title("Stretch background across multiple monitors")
         self.stretchbg_switch.set_active(False)
 
+        # Add row to section
         self.background_group.add(self.stretchbg_switch)
 
         # Draw user background row
@@ -75,6 +77,7 @@ class DemoAppearance(Gtk.Box):
         self.userbg_switch.set_subtitle("When a user is selected, show that user's background.")
         self.userbg_switch.set_active(False)
 
+        # Add row to section
         self.background_group.add(self.userbg_switch)
 
         # Draw a grid row
@@ -83,8 +86,12 @@ class DemoAppearance(Gtk.Box):
         self.gridbg_switch.set_subtitle("Draw a grid of white dots on top of the background.")
         self.gridbg_switch.set_active(False)
 
+        # Add row to section
         self.background_group.add(self.gridbg_switch)
 
+        # Add section with all controls to page
         self.appearance_page.add(self.background_group)
 
+        
+        # Add page with all sections to inherited Gtk.Box
         self.append(self.appearance_page)
