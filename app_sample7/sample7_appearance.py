@@ -134,12 +134,10 @@ class DemoAppearance(Gtk.Box):
         # Mouse pointer size row
         self.pointer_size_row = Adw.ActionRow()
         self.pointer_size_row.set_title("Mouse pointer size")
-
         self.pointer_size_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 5, 50, 1)
         self.pointer_size_scale.set_value(24)
         self.pointer_size_scale.set_hexpand(True)
         self.pointer_size_scale.set_draw_value(True)
-
         self.pointer_size_row.add_suffix(self.pointer_size_scale)
 
         # Add row to section
