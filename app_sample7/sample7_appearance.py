@@ -45,6 +45,8 @@ class DemoAppearance(Gtk.Box):
         # Background row
         self.background_row = Adw.ActionRow()
         self.background_row.set_title("Background")
+        #self.background_row.set_subtitle("Don't select a background from your home directory if it's encrypted or if its permissions are restricted.")
+        #self.background_row.set_tooltip_text("Don't select a background from your home directory if it's encrypted or if its permissions are restricted.")
         self.background_entry = Gtk.Entry()
         self.background_entry.set_hexpand(True)
         self.background_entry.set_property("editable", False)
