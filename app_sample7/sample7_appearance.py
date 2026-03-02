@@ -17,8 +17,8 @@ class DemoAppearance(Gtk.Box):
         self.set_hexpand(True)
         self.set_vexpand(True)
 
-        self.general_section = Adw.PreferencesPage()
-        self.general_section.set_title("General")
+        self.appearance_page = Adw.PreferencesPage()
+        self.appearance_page.set_title("General")
 
         # Seccion General
         self.general_group = Adw.PreferencesGroup()
@@ -35,7 +35,7 @@ class DemoAppearance(Gtk.Box):
 
         self.general_group.add(self.general_row)
 
-        self.general_section.add(self.general_group)
+        self.appearance_page.add(self.general_group)
 
         # Seccion Background
         self.background_group = Adw.PreferencesGroup()
@@ -85,6 +85,6 @@ class DemoAppearance(Gtk.Box):
 
         self.background_group.add(self.gridbg_switch)
 
-        self.general_section.add(self.background_group)
+        self.appearance_page.add(self.background_group)
 
-        self.append(self.general_section)
+        self.append(self.appearance_page)
