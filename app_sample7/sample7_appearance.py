@@ -94,6 +94,45 @@ class DemoAppearance(Gtk.Box):
         # Add section with all controls to page
         self.appearance_page.add(self.background_group)
 
+        # Themes section
+        self.themes_group = Adw.PreferencesGroup()
+        self.themes_group.set_title("Themes")
+
+        # GTK theme row
+        self.gtk_theme_row = Adw.ActionRow()
+        self.gtk_theme_row.set_title("GTK theme")
+        self.gtk_theme_string_list = Gtk.StringList.new(["Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5"])
+        self.gtk_theme_dropdown = Gtk.DropDown.new(self.gtk_theme_string_list)
+        #self.gtk_theme_dropdown.set_hexpand(True)
+        self.gtk_theme_row.add_suffix(self.gtk_theme_dropdown)
+
+        # Add row to section
+        self.themes_group.add(self.gtk_theme_row)
+
+        # Icon theme row
+        self.icon_theme_row = Adw.ActionRow()
+        self.icon_theme_row.set_title("Icon theme")
+        self.icon_theme_string_list = Gtk.StringList.new(["Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5"])
+        self.icon_theme_dropdown = Gtk.DropDown.new(self.icon_theme_string_list)
+        #self.icon_theme_dropdown.set_hexpand(True)
+        self.icon_theme_row.add_suffix(self.icon_theme_dropdown)
+
+        # Add row to section
+        self.themes_group.add(self.icon_theme_row)
+
+        # Mouse pointer row
+        self.mouse_pointer_row = Adw.ActionRow()
+        self.mouse_pointer_row.set_title("Mouse pointer")
+        self.mouse_pointer_string_list = Gtk.StringList.new(["Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5"])
+        self.mouse_pointer_dropdown = Gtk.DropDown.new(self.mouse_pointer_string_list)
+        #self.mouse_pointer_dropdown.set_hexpand(True)
+        self.mouse_pointer_row.add_suffix(self.mouse_pointer_dropdown)
+
+        # Add row to section
+        self.themes_group.add(self.mouse_pointer_row)
+
+        # Add section with all controls to page
+        self.appearance_page.add(self.themes_group)
         
         # Add page with all sections to inherited Gtk.Box
         self.append(self.appearance_page)
