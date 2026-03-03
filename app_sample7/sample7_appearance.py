@@ -18,7 +18,7 @@ class DemoAppearance(Gtk.Box):
         self.set_vexpand(True)
 
         self.appearance_page = Adw.PreferencesPage()
-        self.appearance_page.set_title("General")
+        self.appearance_page.set_title("Appearance")
 
         # General section
         self.general_group = Adw.PreferencesGroup()
