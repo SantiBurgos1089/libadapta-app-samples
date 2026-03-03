@@ -76,12 +76,12 @@ class MainWindow(Adw.ApplicationWindow):
             "xsi-applications-administration-symbolic"
         )
 
-        # Crear el ViewSwitcherTitle (El título que cambia según la vista y tiene los botones)
+        ## Crear el ViewSwitcher (El título que cambia según la vista y tiene los botones)
         switcher_title = Adw.ViewSwitcher()
         switcher_title.set_stack(content_stack)
-        switcher_title.set_policy(Adw.ViewSwitcherPolicy.WIDE)
+        switcher_title.set_policy(Adw.ViewSwitcherPolicy.WIDE)    
 
-        # Crear HeaderBar y asignarlo como el widget de título de la barra
+        # Crear HeaderBar y asignarlo como el widget de título de la barra al centro
         headerbar = Adw.HeaderBar()
         headerbar.set_title_widget(switcher_title)
 
