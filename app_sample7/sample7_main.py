@@ -22,7 +22,7 @@ class MainWindow(Adw.ApplicationWindow):
         # Informacion general de la ventana de aplicacion e icono opcional
         self.set_title("Login Window")
         self.set_default_size(800, 620)
-        self.set_icon_name("lightdm-settings")
+        self.set_icon_name("application-certificate")
 
         # Crear el contenedor principal donde iran todos los controles
         main_content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
