@@ -9,6 +9,7 @@ from gi.repository import Adap as Adw
 
 # Importacion de clases modulares
 from sample7_appearance import DemoAppearance
+from sample7_users import DemoUsers
 
 # Application ID
 app_id = "xyz.agatinos.app_sample_lightdm_settings"
@@ -63,7 +64,7 @@ class MainWindow(Adw.ApplicationWindow):
         )
 
         content_stack.add_titled_with_icon(
-            DemoAppearance(),
+            DemoUsers(),
             "users",
             "Users",
             "xsi-users-symbolic"
