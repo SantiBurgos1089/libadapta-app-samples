@@ -47,10 +47,10 @@ class DemoAppearance(Gtk.Box):
         self.background_row.set_title("Background")
         #self.background_row.set_subtitle("Don't select a background from your home directory if it's encrypted or if its permissions are restricted.")
         #self.background_row.set_tooltip_text("Don't select a background from your home directory if it's encrypted or if its permissions are restricted.")
-        self.background_entry = Gtk.Entry()
-        self.background_entry.set_hexpand(True)
-        self.background_entry.set_property("editable", False)
-        self.background_row.add_suffix(self.background_entry)
+        #self.background_entry = Gtk.Entry()
+        #self.background_entry.set_hexpand(True)
+        #self.background_entry.set_property("editable", False)
+        #self.background_row.add_suffix(self.background_entry)
 
         # Add row to section
         self.background_group.add(self.background_row)
@@ -145,6 +145,27 @@ class DemoAppearance(Gtk.Box):
 
         # Add section with all controls to page
         self.appearance_page.add(self.themes_group)
+
+        # Optional picture section
+        self.optional_group = Adw.PreferencesGroup()
+        self.optional_group.set_title("Optional pictures")
+
+        # Other monitors row
+        self.other_monitors_row = Adw.ActionRow()
+        self.other_monitors_row.set_title("Other monitors")
+
+        # Add row to section
+        self.optional_group.add(self.other_monitors_row)
+
+        # Bottom left row
+        self.bottom_row = Adw.ActionRow()
+        self.bottom_row.set_title("Bottom left")
+
+        # Add row to section
+        self.optional_group.add(self.bottom_row)
+
+        # Add section with all controls to page
+        self.appearance_page.add(self.optional_group)
         
         # Add page with all sections to inherited Gtk.Box
         self.append(self.appearance_page)
