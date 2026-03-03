@@ -61,96 +61,39 @@ class DemoUsers(Gtk.Box):
         # Add section with all controls to page
         self.users_page.add(self.guest_session_group)
 
-        # Themes section
-        self.themes_group = Adw.PreferencesGroup()
-        self.themes_group.set_title("Themes")
+        # Automatic login section
+        self.automatic_login_group = Adw.PreferencesGroup()
+        self.automatic_login_group.set_title("Automatic login")
 
-        # GTK theme row
-        self.gtk_theme_row = Adw.ActionRow()
-        self.gtk_theme_row.set_title("GTK theme")
-        self.gtk_theme_string_list = Gtk.StringList.new(["Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5"])
-        self.gtk_theme_dropdown = Gtk.DropDown.new(self.gtk_theme_string_list)
-        #self.gtk_theme_dropdown.set_hexpand(True)
-        self.gtk_theme_row.add_suffix(self.gtk_theme_dropdown)
-
-        # Add row to section
-        self.themes_group.add(self.gtk_theme_row)
-
-        # Icon theme row
-        self.icon_theme_row = Adw.ActionRow()
-        self.icon_theme_row.set_title("Icon theme")
-        self.icon_theme_string_list = Gtk.StringList.new(["Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5"])
-        self.icon_theme_dropdown = Gtk.DropDown.new(self.icon_theme_string_list)
-        #self.icon_theme_dropdown.set_hexpand(True)
-        self.icon_theme_row.add_suffix(self.icon_theme_dropdown)
+        # Username row
+        self.username_row = Adw.ActionRow()
+        self.username_row.set_title("Username *")
+        self.username_row.set_subtitle("Warning: Automatic login will fail if the user's home directory is encrypted.")
+        self.username_entry = Gtk.Entry()
+        self.username_entry.set_hexpand(True)
+        self.username_row.add_suffix(self.username_entry)
 
         # Add row to section
-        self.themes_group.add(self.icon_theme_row)
+        self.automatic_login_group.add(self.username_row)
 
-        # Mouse pointer row
-        self.mouse_pointer_row = Adw.ActionRow()
-        self.mouse_pointer_row.set_title("Mouse pointer")
-        self.mouse_pointer_string_list = Gtk.StringList.new(["Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5"])
-        self.mouse_pointer_dropdown = Gtk.DropDown.new(self.mouse_pointer_string_list)
-        #self.mouse_pointer_dropdown.set_hexpand(True)
-        self.mouse_pointer_row.add_suffix(self.mouse_pointer_dropdown)
-
-        # Add row to section
-        self.themes_group.add(self.mouse_pointer_row)
-
-        # Mouse pointer size row
-        self.pointer_size_row = Adw.ActionRow()
-        self.pointer_size_row.set_title("Mouse pointer size")
-        self.pointer_size_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 5, 50, 1)
-        self.pointer_size_scale.set_value(24)
-        self.pointer_size_scale.set_hexpand(True)
-        self.pointer_size_scale.set_draw_value(True)
-        self.pointer_size_row.add_suffix(self.pointer_size_scale)
+        # Delay connection row
+        self.delay_connection_row = Adw.ActionRow()
+        self.delay_connection_row.set_title("Delay before connection (in seconds) *")
+        self.delay_connection_row.set_subtitle("If this option is set the login screen will be shown for this many seconds before the automatic login occurs. Any user activity will cancel the countdown.")
+        self.delay_connection_entry = Gtk.Entry()
+        self.delay_connection_entry.set_hexpand(True)
+        self.delay_connection_row.add_suffix(self.delay_connection_entry)
 
         # Add row to section
-        self.themes_group.add(self.pointer_size_row)
+        self.automatic_login_group.add(self.delay_connection_row)
 
         # Add section with all controls to page
-        self.users_page.add(self.themes_group)
+        self.users_page.add(self.automatic_login_group)
 
-        # Optional picture section
-        self.optional_group = Adw.PreferencesGroup()
-        self.optional_group.set_title("Optional pictures")
-
-        # Other monitors row
-        self.other_monitors_row = Adw.ActionRow()
-        self.other_monitors_row.set_title("Other monitors")
-        self.other_monitors_preview = Gtk.Image()
-        self.other_monitors_preview.set_pixel_size(40)
-        self.other_monitors_preview.set_margin_start(6)
-        self.other_monitors_preview.set_from_icon_name("xsi-image-missing-symbolic")
-        self.other_monitors_button = Gtk.Button()
-        self.other_monitors_button.set_icon_name("xsi-document-open-symbolic")
-        self.other_monitors_button.set_valign(Gtk.Align.CENTER)
-        self.other_monitors_row.add_suffix(self.other_monitors_button)
-        self.other_monitors_row.add_suffix(self.other_monitors_preview)
-
-        # Add row to section
-        self.optional_group.add(self.other_monitors_row)
-
-        # Bottom left row
-        self.bottom_row = Adw.ActionRow()
-        self.bottom_row.set_title("Bottom left")
-        self.bottom_preview = Gtk.Image()
-        self.bottom_preview.set_pixel_size(40)
-        self.bottom_preview.set_margin_start(6)
-        self.bottom_preview.set_from_icon_name("xsi-image-missing-symbolic")
-        self.bottom_button = Gtk.Button()
-        self.bottom_button.set_icon_name("xsi-document-open-symbolic")
-        self.bottom_button.set_valign(Gtk.Align.CENTER)
-        self.bottom_row.add_suffix(self.bottom_button)
-        self.bottom_row.add_suffix(self.bottom_preview)
-
-        # Add row to section
-        self.optional_group.add(self.bottom_row)
-
-        # Add section with all controls to page
-        self.users_page.add(self.optional_group)
+        # Add a warning label
+        self.warning_label = Gtk.Label()
+        self.warning_label.set_label("* These settings require a computer reboot to take effect.")
         
         # Add page with all sections to inherited Gtk.Box
         self.append(self.users_page)
+        self.append(self.warning_label)
