@@ -27,7 +27,7 @@ class DemoUsers(Gtk.Box):
         # Manual login row
         self.manual_login_switch = Adw.SwitchRow()
         self.manual_login_switch.set_title("Allow manual login *")
-        self.manual_login_switch.set_subtitle("Add an option in the login window to enter a username")
+        self.manual_login_switch.set_subtitle("Add an option in the login window to enter a username.")
         self.manual_login_switch.set_active(False)
 
         # Add row to section
@@ -36,7 +36,7 @@ class DemoUsers(Gtk.Box):
         # Hide the user list row
         self.hide_users_switch = Adw.SwitchRow()
         self.hide_users_switch.set_title("Hide the user list *")
-        self.hide_users_switch.set_subtitle("Hide the list of users in the login window")
+        self.hide_users_switch.set_subtitle("Hide the list of users in the login window.")
         self.hide_users_switch.set_active(False)
 
         # Add row to section
@@ -45,66 +45,21 @@ class DemoUsers(Gtk.Box):
         # Add section with all controls to page
         self.users_page.add(self.user_list_group)
 
-        # Background section
-        self.background_group = Adw.PreferencesGroup()
-        self.background_group.set_title("Background")
+        # Guest session section
+        self.guest_session_group = Adw.PreferencesGroup()
+        self.guest_session_group.set_title("Guest sessions")
 
-        # Background row
-        self.background_row = Adw.ActionRow()
-        self.background_row.set_title("Background")
-        #self.background_row.set_subtitle("Don't select a background from your home directory if it's encrypted or if its permissions are restricted.")
-        #self.background_row.set_tooltip_text("Don't select a background from your home directory if it's encrypted or if its permissions are restricted.")
-        self.background_preview = Gtk.Image()
-        self.background_preview.set_pixel_size(40)
-        self.background_preview.set_margin_start(6)
-        self.background_preview.set_from_icon_name("xsi-image-missing-symbolic")
-        self.background_button = Gtk.Button()
-        self.background_button.set_icon_name("xsi-document-open-symbolic")
-        self.background_button.set_valign(Gtk.Align.CENTER)
-        self.background_row.add_suffix(self.background_button)
-        self.background_row.add_suffix(self.background_preview)
+        # Allow guest sessions row
+        self.allow_guest_switch = Adw.SwitchRow()
+        self.allow_guest_switch.set_title("Allow guest sessions *")
+        self.allow_guest_switch.set_subtitle("Allow guests to use the computer without a password. A temporary guest account is created automatically when they log in.")
+        self.allow_guest_switch.set_active(False)
 
         # Add row to section
-        self.background_group.add(self.background_row)
-
-        # Background color row
-        self.bgcolor_row = Adw.ActionRow()
-        self.bgcolor_row.set_title("Background color")
-        self.color_dialog = Gtk.ColorDialog()
-        self.color_picker = Gtk.ColorDialogButton.new(dialog=self.color_dialog)
-        self.bgcolor_row.add_suffix(self.color_picker)
-
-        # Add row to section
-        self.background_group.add(self.bgcolor_row)
-
-        # Stretch background row
-        self.stretchbg_switch = Adw.SwitchRow()
-        self.stretchbg_switch.set_title("Stretch background across multiple monitors")
-        self.stretchbg_switch.set_active(False)
-
-        # Add row to section
-        self.background_group.add(self.stretchbg_switch)
-
-        # Draw user background row
-        self.userbg_switch = Adw.SwitchRow()
-        self.userbg_switch.set_title("Draw user backgrounds")
-        self.userbg_switch.set_subtitle("When a user is selected, show that user's background.")
-        self.userbg_switch.set_active(False)
-
-        # Add row to section
-        self.background_group.add(self.userbg_switch)
-
-        # Draw a grid row
-        self.gridbg_switch = Adw.SwitchRow()
-        self.gridbg_switch.set_title("Draw a grid")
-        self.gridbg_switch.set_subtitle("Draw a grid of white dots on top of the background.")
-        self.gridbg_switch.set_active(False)
-
-        # Add row to section
-        self.background_group.add(self.gridbg_switch)
+        self.guest_session_group.add(self.allow_guest_switch)
 
         # Add section with all controls to page
-        self.users_page.add(self.background_group)
+        self.users_page.add(self.guest_session_group)
 
         # Themes section
         self.themes_group = Adw.PreferencesGroup()
