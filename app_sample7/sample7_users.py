@@ -2,7 +2,7 @@
 
 import gi
 gi.require_version('Gtk', '4.0')
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk
 
 gi.require_version('Adap', '1')
 from gi.repository import Adap as Adw
