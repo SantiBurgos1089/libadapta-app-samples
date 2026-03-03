@@ -17,26 +17,35 @@ class DemoSettings(Gtk.Box):
         self.set_hexpand(True)
         self.set_vexpand(True)
 
-        self.appearance_page = Adw.PreferencesPage()
-        self.appearance_page.set_title("General")
+        self.settings_page = Adw.PreferencesPage()
+        self.settings_page.set_title("Settings")
 
-        # General section
-        self.general_group = Adw.PreferencesGroup()
-        self.general_group.set_title("General")
+        # Settings section
+        self.settings_group = Adw.PreferencesGroup()
+        self.settings_group.set_title("Settings")
 
-        # Alignment row
-        self.general_row = Adw.ActionRow()
-        self.general_row.set_title("Alignment")
-        self.general_string_list = Gtk.StringList.new(["Left", "Center", "Right"])
-        self.general_dropdown = Gtk.DropDown.new(self.general_string_list)
-        #self.general_dropdown.set_hexpand(True)
-        self.general_row.add_suffix(self.general_dropdown)
+        # Numlock activation row
+        self.numlock_switch = Adw.SwitchRow()
+        self.numlock_switch.set_title("Activate numlock")
+        self.numlock_switch.set_subtitle("Please install numlockx to use this option.")
+        self.numlock_switch.set_active(False)
 
         # Add row to section
-        self.general_group.add(self.general_row)
+        self.settings_group.add(self.numlock_switch)
+
+        # HiDPI row
+        self.hidpi_row = Adw.ActionRow()
+        self.hidpi_row.set_title("HiDPI support")
+        self.hidpi_string_list = Gtk.StringList.new(["Auto", "Enable", "Disable"])
+        self.hidpi_dropdown = Gtk.DropDown.new(self.hidpi_string_list)
+        #self.hidpi_dropdown.set_hexpand(True)
+        self.hidpi_row.add_suffix(self.hidpi_dropdown)
+
+        # Add row to section
+        self.settings_group.add(self.hidpi_row)
 
         # Add section with all controls to page
-        self.appearance_page.add(self.general_group)
+        self.settings_page.add(self.settings_group)
 
         # Background section
         self.background_group = Adw.PreferencesGroup()
@@ -97,7 +106,7 @@ class DemoSettings(Gtk.Box):
         self.background_group.add(self.gridbg_switch)
 
         # Add section with all controls to page
-        self.appearance_page.add(self.background_group)
+        self.settings_page.add(self.background_group)
 
         # Themes section
         self.themes_group = Adw.PreferencesGroup()
@@ -149,7 +158,7 @@ class DemoSettings(Gtk.Box):
         self.themes_group.add(self.pointer_size_row)
 
         # Add section with all controls to page
-        self.appearance_page.add(self.themes_group)
+        self.settings_page.add(self.themes_group)
 
         # Optional picture section
         self.optional_group = Adw.PreferencesGroup()
@@ -188,7 +197,7 @@ class DemoSettings(Gtk.Box):
         self.optional_group.add(self.bottom_row)
 
         # Add section with all controls to page
-        self.appearance_page.add(self.optional_group)
+        self.settings_page.add(self.optional_group)
         
         # Add page with all sections to inherited Gtk.Box
-        self.append(self.appearance_page)
+        self.append(self.settings_page)
