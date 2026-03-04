@@ -11,9 +11,10 @@ from gi.repository import Adap as Adw
 from sample8_appearance import DemoAppearance
 from sample8_users import DemoUsers
 from sample8_settings import DemoSettings
+from sample8_appmenu import DemoMenu
 
 # Application ID
-app_id = "xyz.agatinos.app_sample_lightdm_settings"
+app_id = "xyz.agatinos.app_sample8"
 
 class MainWindow(Adw.ApplicationWindow):
     def __init__(self, *args, **kwargs):
@@ -85,6 +86,10 @@ class MainWindow(Adw.ApplicationWindow):
         # Crear HeaderBar y asignarlo como el widget de título de la barra al centro
         headerbar = Adw.HeaderBar()
         headerbar.set_title_widget(switcher_title)
+
+        # Añadiendo menu al final del headerbar y antes de añadirlo al contenedor principal
+        demo_menu = DemoMenu()
+        headerbar.pack_end(demo_menu)
 
         # Añadir los widgets al contenedor principal
         main_content_box.append(headerbar)
